@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan - EggScale IoT</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-egg sidebar-logo"></i>
+                <h3 class="sidebar-title">EggScale</h3>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+                <li><a href="penimbangan.html"><i class="fa-solid fa-scale-balanced"></i> Penimbangan</a></li>
+                <li><a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat</a></li>
+                <li><a href="#"><i class="fa-solid fa-file-pdf"></i> Laporan</a></li>
+                <li><a href="pengaturan.html" class="active"><i class="fa-solid fa-gear"></i> Pengaturan</a></li>
+                <li><a href="index.html" class="text-danger mt-3"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <nav class="top-navbar">
+                <div>
+                    <button class="btn btn-light d-md-none" id="sidebarToggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h5 class="mb-0 ms-2 d-none d-md-inline-block text-muted">Selamat datang, Super Admin</h5>
+                </div>
+                <div class="navbar-user">
+                    <span class="d-none d-md-block fw-semibold text-muted">Budi Santoso</span>
+                    <div class="user-avatar">BS</div>
+                </div>
+            </nav>
+
+            <!-- Content Area -->
+            <div class="content-wrapper">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="page-title mb-0">Pengaturan & Kalibrasi</h2>
+                </div>
+
+                <div class="row">
+                    <!-- Calibration Form -->
+                    <div class="col-12 col-lg-8">
+                        <div class="card-custom mb-4">
+                            <div class="card-header">
+                                <i class="fa-solid fa-weight-scale text-primary me-2"></i> Kalibrasi Sensor Berat (HX711)
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted mb-4">Atur parameter kalibrasi untuk menyesuaikan pembacaan sensor dengan berat aktual. Pastikan timbangan dalam keadaan kosong sebelum melakukan tare (nol).</p>
+                                
+                                <form onsubmit="event.preventDefault(); alert('Pengaturan Kalibrasi Berhasil Disimpan!');">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">Faktor Kalibrasi (Calibration Factor)</label>
+                                            <input type="number" step="0.01" class="form-control" value="2280.50" required>
+                                            <div class="form-text">Nilai pengali untuk mengkonversi nilai raw sensor menjadi satuan Kilogram (kg).</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">Target Berat Standar Tray (kg)</label>
+                                            <input type="number" step="0.01" class="form-control" value="2.90" required>
+                                            <div class="form-text">Batas bawah berat untuk dikategorikan sebagai tray standar.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">Toleransi Berat (± kg)</label>
+                                            <input type="number" step="0.01" class="form-control" value="0.05" required>
+                                            <div class="form-text">Toleransi error pembacaan yang diizinkan.</div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">Satuan Pengukuran</label>
+                                            <select class="form-select">
+                                                <option value="kg" selected>Kilogram (kg)</option>
+                                                <option value="g">Gram (g)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save me-1"></i> Simpan Kalibrasi</button>
+                                        <button type="button" class="btn btn-outline-danger" onclick="alert('Melakukan Tare (Set ke 0.00 kg). Pastikan timbangan kosong!')"><i class="fa-solid fa-arrow-rotate-left me-1"></i> Tare (Set Nol)</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sensor Status -->
+                    <div class="col-12 col-lg-4">
+                        <div class="card-custom">
+                            <div class="card-header">
+                                <i class="fa-solid fa-microchip text-success me-2"></i> Status Perangkat
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        Status Koneksi ESP32
+                                        <span class="badge bg-success rounded-pill">Online</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        Pembacaan Raw (ADC)
+                                        <span class="font-monospace text-muted">842910</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        Nilai Offset
+                                        <span class="font-monospace text-muted">10250</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        Terakhir Dikalibrasi
+                                        <span class="text-muted" style="font-size: 0.85rem;">Hari ini, 08:30 WIB</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
