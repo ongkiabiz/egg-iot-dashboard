@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Penimbangan - EggScale IoT</title>
+    <title>Penimbangan - EggScale IoT</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,9 +25,7 @@
             <ul class="sidebar-menu">
                 <li><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
                 <li><a href="penimbangan.html" class="active"><i class="fa-solid fa-scale-balanced"></i> Penimbangan</a></li>
-                <li><a href="#"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat</a></li>
-                <li><a href="#"><i class="fa-solid fa-file-pdf"></i> Laporan</a></li>
-                <li><a href="pengaturan.html"><i class="fa-solid fa-gear"></i> Pengaturan</a></li>
+                <li><a href="pengaturan.html"><i class="fa-solid fa-gear"></i> Kalibrasi Manual</a></li>
                 <li><a href="index.html" class="text-danger mt-3"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
             </ul>
         </aside>
@@ -51,157 +49,49 @@
             <!-- Content Area -->
             <div class="content-wrapper">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="page-title mb-0">Data Penimbangan Telur</h2>
+                    <h2 class="page-title mb-0">Proses Penimbangan</h2>
                     <div>
-                        <button class="btn btn-outline-danger me-2" onclick="alert('Export PDF (Simulasi)')">
-                            <i class="fa-solid fa-file-pdf"></i> Export PDF
-                        </button>
-                        <button class="btn btn-outline-success" onclick="alert('Export Excel (Simulasi)')">
-                            <i class="fa-solid fa-file-excel"></i> Export Excel
-                        </button>
+                        <span class="badge badge-online">
+                            <span class="status-indicator indicator-online"></span> TB01: Online
+                        </span>
                     </div>
                 </div>
 
-                <!-- Filters & Search -->
-                <div class="card-custom mb-4">
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <label class="form-label text-muted">Pencarian</label>
-                                <div class="search-box">
-                                    <i class="fa-solid fa-search"></i>
-                                    <input type="text" class="form-control" placeholder="Cari ID/Operator...">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label text-muted">Filter Tanggal</label>
-                                <input type="date" class="form-control">
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label text-muted">Kandang</label>
-                                <select class="form-select">
-                                    <option value="">Semua</option>
-                                    <option>Kandang A</option>
-                                    <option>Kandang B</option>
-                                    <option>Kandang C</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label text-muted">Operator</label>
-                                <select class="form-select">
-                                    <option value="">Semua</option>
-                                    <option>Joko</option>
-                                    <option>Bambang</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 d-flex align-items-end">
-                                <button class="btn btn-primary w-100"><i class="fa-solid fa-filter"></i> Terapkan</button>
-                            </div>
-                        </div>
+                <!-- Weighing Controls -->
+                <div class="card-custom mb-4 border-0 bg-transparent shadow-none">
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-primary btn-lg px-5 py-3 fw-bold" style="border-radius: 50px; font-size: 1.2rem;" onclick="mulaiTimbang(this)">
+                            <i class="fa-solid fa-play me-2"></i> Mulai Timbang
+                        </button>
+                    </div>
+                    <div class="text-center mt-3 text-muted" id="statusTimbang">
+                        Sistem dalam keadaan standby. Klik tombol di atas untuk memulai.
                     </div>
                 </div>
 
-                <!-- Table Data -->
-                <div class="card-custom">
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-custom mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Tanggal</th>
-                                        <th>Jam</th>
-                                        <th>Berat (kg)</th>
-                                        <th>Jml. Tray</th>
-                                        <th>Est. Telur</th>
-                                        <th>Grade</th>
-                                        <th>Kandang</th>
-                                        <th>Operator</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Row 1 -->
-                                    <tr>
-                                        <td class="fw-semibold">#PNB-001</td>
-                                        <td>06 Jul 2026</td>
-                                        <td>10:45 WIB</td>
-                                        <td class="fw-bold">2.95</td>
-                                        <td>1</td>
-                                        <td>45</td>
-                                        <td><span class="badge badge-grade-a">A</span></td>
-                                        <td>Kandang A</td>
-                                        <td>Joko</td>
-                                        <td><span class="badge badge-online">Tersimpan</span></td>
-                                    </tr>
-                                    <!-- Row 2 -->
-                                    <tr>
-                                        <td class="fw-semibold">#PNB-002</td>
-                                        <td>06 Jul 2026</td>
-                                        <td>10:30 WIB</td>
-                                        <td class="fw-bold">3.10</td>
-                                        <td>1</td>
-                                        <td>48</td>
-                                        <td><span class="badge badge-grade-a">A</span></td>
-                                        <td>Kandang B</td>
-                                        <td>Bambang</td>
-                                        <td><span class="badge badge-online">Tersimpan</span></td>
-                                    </tr>
-                                    <!-- Row 3 -->
-                                    <tr>
-                                        <td class="fw-semibold">#PNB-003</td>
-                                        <td>06 Jul 2026</td>
-                                        <td>10:15 WIB</td>
-                                        <td class="fw-bold">2.80</td>
-                                        <td>1</td>
-                                        <td>42</td>
-                                        <td><span class="badge badge-grade-b">B</span></td>
-                                        <td>Kandang A</td>
-                                        <td>Joko</td>
-                                        <td><span class="badge badge-online">Tersimpan</span></td>
-                                    </tr>
-                                    <!-- Row 4 -->
-                                    <tr>
-                                        <td class="fw-semibold">#PNB-004</td>
-                                        <td>06 Jul 2026</td>
-                                        <td>09:50 WIB</td>
-                                        <td class="fw-bold">2.65</td>
-                                        <td>1</td>
-                                        <td>40</td>
-                                        <td><span class="badge badge-grade-c">C</span></td>
-                                        <td>Kandang C</td>
-                                        <td>Andi</td>
-                                        <td><span class="badge badge-online">Tersimpan</span></td>
-                                    </tr>
-                                    <!-- Row 5 -->
-                                    <tr>
-                                        <td class="fw-semibold">#PNB-005</td>
-                                        <td>06 Jul 2026</td>
-                                        <td>09:35 WIB</td>
-                                        <td class="fw-bold">3.05</td>
-                                        <td>1</td>
-                                        <td>46</td>
-                                        <td><span class="badge badge-grade-a">A</span></td>
-                                        <td>Kandang B</td>
-                                        <td>Bambang</td>
-                                        <td><span class="badge badge-online">Tersimpan</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <!-- Big Statistics Cards -->
+                <div class="row justify-content-center g-4 mb-4">
+                    <div class="col-12 col-md-6 col-lg-5">
+                        <div class="stat-card" style="padding: 30px;">
+                            <div class="stat-icon icon-green" style="width: 80px; height: 80px; font-size: 2.5rem;">
+                                <i class="fa-solid fa-weight-scale"></i>
+                            </div>
+                            <div class="stat-details ms-3">
+                                <h5 class="fs-5">Berat Saat Ini</h5>
+                                <h3 id="liveWeight" style="font-size: 2.5rem;">0.00 <small class="fs-5 text-muted">kg</small></h3>
+                            </div>
                         </div>
-                        
-                        <!-- Pagination -->
-                        <div class="d-flex justify-content-between align-items-center p-3 border-top">
-                            <span class="text-muted">Menampilkan 1-5 dari 42 data</span>
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination pagination-sm mb-0">
-                                    <li class="page-item disabled"><a class="page-link" href="#">Sebelumnya</a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">Selanjutnya</a></li>
-                                </ul>
-                            </nav>
+                    </div>
+                    
+                    <div class="col-12 col-md-6 col-lg-5">
+                        <div class="stat-card" style="padding: 30px;">
+                            <div class="stat-icon icon-blue" style="width: 80px; height: 80px; font-size: 2.5rem;">
+                                <i class="fa-solid fa-box-archive"></i>
+                            </div>
+                            <div class="stat-details ms-3">
+                                <h5 class="fs-5">Total Berat Hari Ini</h5>
+                                <h3 id="totalWeight" style="font-size: 2.5rem;">124.50 <small class="fs-5 text-muted">kg</small></h3>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -213,5 +103,35 @@
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script>
+        function mulaiTimbang(btn) {
+            const statusText = document.getElementById('statusTimbang');
+            const liveWeight = document.getElementById('liveWeight');
+            
+            if (btn.classList.contains('btn-primary')) {
+                // Ubah ke mode berhenti
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-danger');
+                btn.innerHTML = '<i class="fa-solid fa-stop me-2"></i> Hentikan Timbang';
+                statusText.innerHTML = '<span class="text-success fw-bold"><i class="fa-solid fa-spinner fa-spin"></i> Sedang membaca data dari sensor...</span>';
+                
+                // Simulasi pembacaan naik
+                liveWeight.innerHTML = '2.95 <small class="fs-5 text-muted">kg</small>';
+            } else {
+                // Kembali ke mode mulai
+                btn.classList.remove('btn-danger');
+                btn.classList.add('btn-primary');
+                btn.innerHTML = '<i class="fa-solid fa-play me-2"></i> Mulai Timbang';
+                statusText.innerHTML = 'Sistem dalam keadaan standby. Klik tombol di atas untuk memulai.';
+                
+                // Simulasi reset/tersimpan
+                alert('Data penimbangan sebesar 2.95 kg berhasil disimpan ke riwayat!');
+                liveWeight.innerHTML = '0.00 <small class="fs-5 text-muted">kg</small>';
+                
+                // Update total berat simulasi
+                document.getElementById('totalWeight').innerHTML = '127.45 <small class="fs-5 text-muted">kg</small>';
+            }
+        }
+    </script>
 </body>
 </html>
