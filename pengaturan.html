@@ -110,7 +110,18 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                         Status Koneksi TB01
-                                        <span class="badge bg-success rounded-pill">Online</span>
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm badge badge-online border-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="status-indicator indicator-online"></span> TB01: Online
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+                                                <li><a class="dropdown-item active" href="#"><span class="status-indicator indicator-online"></span> TB01 (Aktif)</a></li>
+                                                <li><a class="dropdown-item" href="#"><span class="status-indicator indicator-online"></span> TB02</a></li>
+                                                <li><a class="dropdown-item" href="#"><span class="status-indicator indicator-offline" style="background-color: #dc3545;"></span> TB03 (Offline)</a></li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li><a class="dropdown-item text-primary" href="#"><i class="fa-solid fa-plus me-2"></i>Tambah Timbangan Baru</a></li>
+                                            </ul>
+                                        </div>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                         Pembacaan Raw (ADC)
