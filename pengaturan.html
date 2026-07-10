@@ -40,7 +40,7 @@
                     </button>
                     <h5 class="mb-0 ms-2 d-none d-md-inline-block text-muted">Selamat datang, Super Admin</h5>
                 </div>
-                <div class="navbar-user">
+                <div class="navbar-user" data-bs-toggle="offcanvas" data-bs-target="#profileOffcanvas" style="cursor: pointer;" title="Perbarui Profil">
                     <span class="d-none d-md-block fw-semibold text-muted">Budi Santoso</span>
                     <div class="user-avatar">BS</div>
                 </div>
@@ -132,6 +132,39 @@
 
             </div>
         </main>
+    </div>
+
+    <!-- Offcanvas Profile -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="profileOffcanvas" aria-labelledby="profileOffcanvasLabel">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title" id="profileOffcanvasLabel"><i class="fa-solid fa-user-edit me-2"></i> Perbarui Profil</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="text-center mb-4">
+                <div class="user-avatar mx-auto mb-3" style="width: 80px; height: 80px; font-size: 2rem;">BS</div>
+                <button class="btn btn-sm btn-outline-secondary">Ganti Foto</button>
+            </div>
+            <form onsubmit="event.preventDefault(); alert('Profil berhasil diperbarui!');">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Nama Lengkap</label>
+                    <input type="text" class="form-control" value="Budi Santoso" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Jabatan/Peran</label>
+                    <input type="text" class="form-control" value="Super Admin" readonly>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email / Username</label>
+                    <input type="text" class="form-control" value="budi.admin" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Password Baru</label>
+                    <input type="password" class="form-control" placeholder="Kosongkan jika tidak ingin ganti">
+                </div>
+                <button type="submit" class="btn btn-primary w-100"><i class="fa-solid fa-save me-2"></i> Simpan Perubahan</button>
+            </form>
+        </div>
     </div>
 
     <!-- Bootstrap 5 JS -->
