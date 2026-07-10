@@ -89,8 +89,11 @@
                                 <i class="fa-solid fa-box-archive"></i>
                             </div>
                             <div class="stat-details ms-3">
-                                <h5 class="fs-5">Total Berat Hari Ini</h5>
-                                <h3 id="totalWeight" style="font-size: 2.5rem;">124.50 <small class="fs-5 text-muted">kg</small></h3>
+                                <h5 class="fs-5">Total Berat Saat Ini</h5>
+                                <h3 id="totalWeight" style="font-size: 2.5rem; margin-bottom: 0;">124.50 <small class="fs-5 text-muted">kg</small></h3>
+                                <button class="btn btn-sm btn-outline-danger mt-2" onclick="document.getElementById('totalWeight').innerHTML = '0.00 <small class=\'fs-5 text-muted\'>kg</small>'">
+                                    <i class="fa-solid fa-rotate-left"></i> Reset Berat
+                                </button>
                             </div>
                         </div>
                     </div>
